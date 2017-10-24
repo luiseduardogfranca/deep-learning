@@ -5,24 +5,77 @@
     <script src="./js/graph.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/graph.css">
     <script src="./js/neataptic.js"></script>
-  </head>
-  <style media="screen">
-    .row{
-      height: 100%;
-    }
 
-    .draw{
-      text-align: center !important;
-    }
-  </style>
+    <style media="screen">
+      .row{
+        height: 100%;
+      }
+
+      .draw{
+        text-align: center !important;
+      }
+
+      .menu{
+        position: fixed;
+        top: 20px;
+        left: 20px;
+
+      }
+
+      .input{
+          margin
+          width: 100%;
+          padding: 10px;
+          margin-top: 5px;
+          border: 0;
+          border-bottom: 2px solid rgb(6, 173, 88);
+      }
+
+      .input:focus{
+        outline: 0;
+      }
+
+      .btn-larger{
+        margin-top: 10px;
+        background: rgb(6, 173, 88);
+        width: 100%;
+        color: rgb(220, 224, 223);
+        padding: 15px;
+        border-radius: 5px;
+        border: none;
+        font-size: 10pt;
+      }
+
+      .btn-larger:hover{
+        background: rgb(37, 120, 78);
+      }
+
+    </style>
+  </head>
+
   <body>
     <div class="container">
       <div class="row">
         <svg class="draw" width="100%" height="100%"/>
       </div>
+
+      <div class="menu">
+        <input class="input" type="number" id="input" placeholder="Neurons on input"><br>
+        <input class="input" type="number" id="hidden" placeholder="Neurons on hidden"><br>
+        <input class="input" type="number" id="output" placeholder="Neurons on output"><br>
+        <input class="btn-larger" type="submit" name="send" onclick="createGraph(1,2,3)" value="Generate Neural Network">
+      </div>
     </div>
     <script>
-      var network = new neataptic.architect.Perceptron(4, 30, 1);
+
+
+      function createGraph() {
+        var numberInput = document.getElementById('input').value;
+        var numberHidden = document.getElementById('hidden').value;
+        var numberOutput = document.getElementById('output').value;
+        var network = new neataptic.architect.Perceptron(numberInput, numberHidden, numberOutput);
+        drawGraph(network.graph(400, 400), '.draw');
+      }
       // var trainingSet = [
       //   { input: [0,0], output: [0] },
       //   { input: [0,1], output: [1] },
@@ -43,7 +96,6 @@
       // });
 
       // network.activate([1,1]);
-      drawGraph(network.graph(400, 400), '.draw');
     </script>
   </body>
 </html>
